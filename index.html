@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101010">
+  <title>SUPER OUD PERFUME | Order Tracking</title>
+  <style>
+    :root { --gold:#d9b536; --gold2:#f0cf58; --bg:#101010; --panel:#1b1b1b; --muted:#b9b9b9; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; background:var(--bg); color:#fff; font-family:Arial,Helvetica,sans-serif; display:flex; justify-content:center; }
+    .wrap { width:min(760px, 100%); padding:55px 22px 40px; text-align:center; }
+    .logo { width:104px; height:104px; margin:0 auto 24px; border:1px solid rgba(217,181,54,.5); border-radius:50%; display:grid; place-items:center; color:var(--gold); font-size:35px; font-weight:bold; }
+    .brand { color:var(--gold); font-size:13px; letter-spacing:3px; margin-top:-16px; margin-bottom:42px; }
+    h1 { color:var(--gold); font-size:clamp(25px,5vw,36px); margin:0 0 10px; letter-spacing:.5px; }
+    .subtitle { color:#eee; margin:0 0 34px; font-size:16px; }
+    .panel { max-width:590px; margin:auto; padding:25px; background:var(--panel); border:1px solid rgba(217,181,54,.45); border-radius:12px; text-align:left; }
+    label { display:block; color:var(--gold2); font-size:14px; margin:0 0 9px; font-weight:bold; }
+    select,input { width:100%; padding:15px 14px; background:#242424; color:white; border:1.5px solid var(--gold); border-radius:8px; font-size:16px; outline:none; }
+    input { margin-top:18px; }
+    select:focus,input:focus { box-shadow:0 0 0 3px rgba(217,181,54,.16); }
+    button { width:100%; margin-top:18px; padding:15px; border:0; border-radius:8px; background:var(--gold); color:#111; font-size:16px; font-weight:bold; cursor:pointer; }
+    button:hover { background:var(--gold2); }
+    .note { color:var(--muted); font-size:12px; line-height:1.6; text-align:center; margin:19px auto 0; max-width:560px; }
+    .footer { color:#777; font-size:12px; margin-top:45px; letter-spacing:.5px; }
+    .error { color:#ffb4a9; font-size:13px; margin-top:12px; min-height:18px; }
+    @media(max-width:520px) { .wrap{padding-top:35px}.panel{padding:19px}.logo{width:88px;height:88px} }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="logo" aria-label="Super Oud logo">SO</div>
+    <div class="brand">SUPER OUD PERFUMES</div>
+    <h1>ORDER TRACKING</h1>
+    <p class="subtitle">Track your shipment with SUPER OUD PERFUME</p>
+
+    <section class="panel">
+      <label for="courier">Select your delivery company</label>
+      <select id="courier">
+        <option value="dhl">DHL Express – International</option>
+        <option value="aramex">Aramex – International</option>
+        <option value="tamayoz">Tamayoz – UAE Domestic</option>
+      </select>
+      <input id="tracking" type="text" placeholder="Enter your tracking / AWB number" autocomplete="off">
+      <button id="trackBtn" type="button">TRACK MY ORDER</button>
+      <div class="error" id="error" role="alert"></div>
+    </section>
+
+    <p class="note">
+      Your shipment's live status is provided by the selected courier. This free version opens the courier's official tracking service.
+      SUPER OUD PERFUME does not store your tracking number on this page.
+    </p>
+    <div class="footer">© SUPER OUD PERFUME</div>
+  </main>
+  <script>
+    const tracking = document.getElementById('tracking');
+    const courier = document.getElementById('courier');
+    const error = document.getElementById('error');
+
+    document.getElementById('trackBtn').addEventListener('click', () => {
+      const number = tracking.value.trim();
+      error.textContent = '';
+      if (!number) {
+        error.textContent = 'Please enter your tracking / AWB number.';
+        tracking.focus();
+        return;
+      }
+      const encoded = encodeURIComponent(number);
+      let url = '';
+      if (courier.value === 'dhl') {
+        url = 'https://www.dhl.com/ae-en/home/tracking.html?tracking-id=' + encoded;
+      } else if (courier.value === 'aramex') {
+        // Aramex official tracking page; customer can enter the AWB there.
+        url = 'https://www.aramex.com/ae/en/track/shipments';
+      } else {
+        // Replace this with Tamayoz's official tracking URL once provided.
+        url = '';
+      }
+      if (!url) {
+        error.textContent = 'Please send us Tamayoz’s official tracking page link so we can connect it.';
+        return;
+      }
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+    tracking.addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('trackBtn').click();
+    });
+  </script>
+</body>
+</html>
