@@ -10,7 +10,14 @@
     * { box-sizing:border-box; }
     body { margin:0; min-height:100vh; background:var(--bg); color:#fff; font-family:Arial,Helvetica,sans-serif; display:flex; justify-content:center; }
     .wrap { width:min(760px, 100%); padding:55px 22px 40px; text-align:center; }
-    .logo { width:104px; height:104px; margin:0 auto 24px; border:1px solid rgba(217,181,54,.5); border-radius:50%; display:grid; place-items:center; color:var(--gold); font-size:35px; font-weight:bold; }
+    .logo {
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 24px;
+  object-fit: contain;
+  padding: 8px;
+  display: block;
+}
     .brand { color:var(--gold); font-size:13px; letter-spacing:3px; margin-top:-16px; margin-bottom:42px; }
     h1 { color:var(--gold); font-size:clamp(25px,5vw,36px); margin:0 0 10px; letter-spacing:.5px; }
     .subtitle { color:#eee; margin:0 0 34px; font-size:16px; }
@@ -29,7 +36,7 @@
 </head>
 <body>
   <main class="wrap">
-    <div class="logo" aria-label="Super Oud logo">SO</div>
+    <img class="logo" src="LOGO%20SUPER%20OUD%20PERFUME.PNG" alt="Super Oud Perfume Logo">
     <div class="brand">SUPER OUD PERFUMES</div>
     <h1>ORDER TRACKING</h1>
     <p class="subtitle">Track your shipment with SUPER OUD PERFUME</p>
